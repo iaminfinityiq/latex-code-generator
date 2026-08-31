@@ -1,0 +1,24 @@
+#pragma once
+#include "expressions.hpp"
+#include <string>
+
+namespace latexgen {
+    /**
+     * A number constructor
+     */
+    struct Number : public Expression {
+    public:
+        /**
+         * A number constructor
+         * @param value the value to input in (as a string)
+         */
+        Number(const std::string value);
+        /**
+         * Turns the desired number value to LaTeX
+         * @return The desired LaTeX code for the number value
+         */
+        std::string to_latex() override;
+    private:
+        std::string value;
+    };
+}
