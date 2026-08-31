@@ -42,6 +42,10 @@ namespace latexgen {
             return "\\textbackslash{}";
         }
 
+        if (c == '\n') {
+            return "\\\\";
+        }
+
         return std::string(1, c);
     }
 

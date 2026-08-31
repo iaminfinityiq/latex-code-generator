@@ -12,7 +12,7 @@ namespace latexgen {
         for (size_t i = starting_index; i < value.size(); i++) {
             if (value[i] == '.') {
                 if (dot) {
-                    throw ArgumentException("extra '.' in value parameter of Number class");
+                    throw ArgumentException("extra '.' in value parameter of Number struct");
                 }
 
                 dot = true;
@@ -20,7 +20,7 @@ namespace latexgen {
             }
 
             if (value[i] < '0' || value[i] > '9') {
-                throw ArgumentException("non-digit character found in value parameter of Number class");
+                throw ArgumentException("non-digit character found in value parameter of Number struct");
             }
         }
 
