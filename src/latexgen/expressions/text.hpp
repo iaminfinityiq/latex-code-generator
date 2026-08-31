@@ -1,0 +1,19 @@
+#pragma once
+#include "expressions.hpp"
+
+namespace latexgen {
+    /**
+     * Text
+     */
+    struct Text : public Expression {
+    public:
+        /**
+         * A constructor for text
+         * @param text the desired text
+         */
+        Text(const std::string text);
+        std::string to_latex() override;
+    private:
+        std::string text;
+    };
+}

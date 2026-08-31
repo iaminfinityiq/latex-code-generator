@@ -1,5 +1,5 @@
 #include "numbers.hpp"
-#include "../exceptions/exceptions.hpp"
+#include "../exceptions.hpp"
 
 namespace latexgen {
     Number::Number(const std::string value) : Expression(ExpressionType::NUMBER) {

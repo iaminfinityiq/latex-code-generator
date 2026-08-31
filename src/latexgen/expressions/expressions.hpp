@@ -6,7 +6,8 @@ namespace latexgen {
      * Different types of an expression
      */
     enum struct ExpressionType {
-        NUMBER
+        NUMBER,
+        TEXT
     };
 
     /**

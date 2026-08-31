@@ -4,7 +4,7 @@
 
 namespace latexgen {
     /**
-     * A number constructor
+     * A number
      */
     struct Number : public Expression {
     public:
