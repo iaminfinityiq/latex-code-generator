@@ -17,7 +17,7 @@ else
 	PATHSEP = /
 endif
 
-BIN := main$(EXE)
+BIN := latex$(EXE)
 
 .PHONY: all clean
 

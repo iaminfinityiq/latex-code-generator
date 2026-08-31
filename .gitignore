@@ -1,0 +1,18 @@
+# Build output
+/build/
+/files/
+
+# Executables
+*.exe
+
+# Batch scripts
+build.bat
+error_build.bat
+latex.bat
+
+# Optional editor files
+.vscode/
+*.o
+*.obj
+*.pdb
+*.ilk
