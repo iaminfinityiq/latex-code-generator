@@ -22,7 +22,6 @@ namespace latexgen {
      */
     struct UnaryExpression : public Expression {
     public:
-        UnaryExpressionType unary_type;
         /**
          * A unary expression constructor
          * @param unary_type the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
@@ -35,6 +34,7 @@ namespace latexgen {
          */
         std::string to_latex() override;
     private:
+        UnaryExpressionType unary_type;
         std::shared_ptr<Expression> value;
     };
 }

@@ -16,7 +16,7 @@ namespace latexgen {
      * Base class for an expression
      */
     struct Expression {
-        ExpressionType type;
+    public:
         /**
          * An expression constructor
          * @param Expression type
@@ -27,5 +27,7 @@ namespace latexgen {
          * @return the desired LaTeX code for the expression
          */
         virtual std::string to_latex();
+    private:
+        ExpressionType type;
     };
 }
