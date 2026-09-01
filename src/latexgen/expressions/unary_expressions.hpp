@@ -21,8 +21,8 @@ namespace latexgen {
      * Represents a unary expression, which is a kind of expression that only has one input
      */
     struct UnaryExpression : public Expression {
+    public:
         UnaryExpressionType unary_type;
-        std::shared_ptr<Expression> value;
         /**
          * A unary expression constructor
          * @param unary_type the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
@@ -34,5 +34,7 @@ namespace latexgen {
          * @return the desired LaTeX code for the unary expression
          */
         std::string to_latex() override;
+    private:
+        std::shared_ptr<Expression> value;
     };
 }
