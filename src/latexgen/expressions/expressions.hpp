@@ -7,7 +7,9 @@ namespace latexgen {
      */
     enum struct ExpressionType {
         NUMBER,
-        TEXT
+        TEXT,
+        UNARY,
+        BINARY
     };
 
     /**

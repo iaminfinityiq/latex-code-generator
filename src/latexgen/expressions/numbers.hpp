@@ -15,7 +15,7 @@ namespace latexgen {
         Number(const std::string value);
         /**
          * Turns the desired number value to LaTeX
-         * @return The desired LaTeX code for the number value
+         * @return the desired LaTeX code for the number value
          */
         std::string to_latex() override;
     private:
