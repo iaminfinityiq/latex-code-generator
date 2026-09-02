@@ -1,8 +1,8 @@
 #include "expressions.hpp"
 
 namespace latexgen {
-    Expression::Expression(const ExpressionType type) : type(type) {}
-    std::string Expression::to_latex() {
+    Expression::Expression(ExpressionType type) : type(type) {}
+    std::string Expression::to_latex() const {
         return "";
     }
 }

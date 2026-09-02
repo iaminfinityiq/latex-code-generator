@@ -21,12 +21,13 @@ namespace latexgen {
          * An expression constructor
          * @param Expression type
          */
-        Expression(const ExpressionType type);
+        Expression(ExpressionType type);
+        virtual ~Expression() = default;
         /**
          * Turns the desired expression to LaTeX
          * @return the desired LaTeX code for the expression
          */
-        virtual std::string to_latex();
+        virtual std::string to_latex() const;
     private:
         ExpressionType type;
     };

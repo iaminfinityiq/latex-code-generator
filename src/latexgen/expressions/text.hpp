@@ -11,8 +11,8 @@ namespace latexgen {
          * A constructor for text
          * @param text the desired text
          */
-        Text(const std::string text);
-        std::string to_latex() override;
+        Text(std::string text);
+        std::string to_latex() const override;
     private:
         std::string text;
     };

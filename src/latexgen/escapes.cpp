@@ -2,51 +2,32 @@
 
 namespace latexgen {
     std::string escape(const char c) {
-        if (c == '#') {
-            return "\\#";
+        switch (c) {
+            case '#':
+                return "\\#";
+            case '$':
+                return "\\$";
+            case '%':
+                return "\\%";
+            case '&':
+                return "\\&";
+            case '_':
+                return "\\_";
+            case '{':
+                return "\\{";
+            case '}':
+                return "\\}";
+            case '~':
+                return "\\~{}";
+            case '^':
+                return "\\^{}";
+            case '\\':
+                return "\\textbackslash{}";
+            case '\n':
+                return "\\\\";
+            default:
+                return std::string(1, c);
         }
-
-        if (c == '$') {
-            return "\\$";
-        }
-
-        if (c == '%') {
-            return "\\%";
-        }
-
-        if (c == '&') {
-            return "\\&";
-        }
-
-        if (c == '_') {
-            return "\\_";
-        }
-
-        if (c == '{') {
-            return "\\{";
-        }
-
-        if (c == '}') {
-            return "\\}";
-        }
-
-        if (c == '~') {
-            return "\\~{}";
-        }
-
-        if (c == '^') {
-            return "\\^{}";
-        }
-
-        if (c == '\\') {
-            return "\\textbackslash{}";
-        }
-
-        if (c == '\n') {
-            return "\\\\";
-        }
-
-        return std::string(1, c);
     }
 
     std::string escape(const std::string text) {

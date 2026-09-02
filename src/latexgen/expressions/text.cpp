@@ -3,8 +3,8 @@
 #include "../exceptions.hpp"
 
 namespace latexgen {
-    Text::Text(const std::string text) : Expression(ExpressionType::TEXT) {
-        for (const char &c : text) {
+    Text::Text(std::string text) : Expression(ExpressionType::TEXT) {
+        for (const char c : text) {
             if (c == '\n') {
                 throw ArgumentException("newlines are not allowed in text parameter of Text struct");
             }
@@ -13,7 +13,7 @@ namespace latexgen {
         this->text = text;
     }
 
-    std::string Text::to_latex() {
+    std::string Text::to_latex() const {
         return "\\text{" + escape(this->text) + "}";
     }
 }

@@ -12,12 +12,12 @@ namespace latexgen {
          * A number constructor
          * @param value the value to input in (as a string)
          */
-        Number(const std::string value);
+        Number(std::string value);
         /**
          * Turns the desired number value to LaTeX
          * @return the desired LaTeX code for the number value
          */
-        std::string to_latex() override;
+        std::string to_latex() const override;
     private:
         std::string value;
     };

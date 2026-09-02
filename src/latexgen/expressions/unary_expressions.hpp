@@ -1,6 +1,5 @@
 #pragma once
 #include "expressions.hpp"
-#include <memory>
 
 namespace latexgen {
     /**
@@ -27,14 +26,15 @@ namespace latexgen {
          * @param unary_type the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
          * @param value the value to perform the unary operation on
          */
-        UnaryExpression(const UnaryExpressionType unary_type, const std::shared_ptr<Expression> &value);
+        UnaryExpression(const UnaryExpressionType unary_type, const Expression* const value);
+        ~UnaryExpression();
         /**
          * Turns the desired unary expression into LaTeX
          * @return the desired LaTeX code for the unary expression
          */
-        std::string to_latex() override;
+        std::string to_latex() const override;
     private:
-        UnaryExpressionType unary_type;
-        std::shared_ptr<Expression> value;
+        const UnaryExpressionType unary_type;
+        const Expression* value;
     };
 }
