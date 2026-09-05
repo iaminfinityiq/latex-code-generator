@@ -2,9 +2,6 @@
 
 namespace latexgen {
     UnaryExpression::UnaryExpression(const UnaryExpressionType unary_type, const Expression* const value) : Expression(ExpressionType::UNARY), unary_type(unary_type), value(value) {}
-    UnaryExpression::~UnaryExpression() {
-        delete this->value;
-    }
 
     std::string UnaryExpression::to_latex() const {
         switch (this->unary_type) {
@@ -28,4 +25,12 @@ namespace latexgen {
                 return "this is broken";
         }
     }
+
+    UnaryPlus::UnaryPlus(const Expression* const value) : UnaryExpression(UnaryExpressionType::PLUS, value) {}
+    UnaryMinus::UnaryMinus(const Expression* const value) : UnaryExpression(UnaryExpressionType::MINUS, value) {}
+    AbsoluteValue::AbsoluteValue(const Expression* const value) : UnaryExpression(UnaryExpressionType::ABSOLUTE_VALUE, value) {}
+    SquareRoot::SquareRoot(const Expression* const value) : UnaryExpression(UnaryExpressionType::SQUARE_ROOT, value) {}
+    CubeRoot::CubeRoot(const Expression* const value) : UnaryExpression(UnaryExpressionType::CUBE_ROOT, value) {}
+    Floor::Floor(const Expression* const value) : UnaryExpression(UnaryExpressionType::FLOOR, value) {}
+    Ceiling::Ceiling(const Expression* const value) : UnaryExpression(UnaryExpressionType::CEILING, value) {}
 }

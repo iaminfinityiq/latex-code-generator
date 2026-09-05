@@ -1,28 +1,37 @@
 #include <iostream>
-#include "latexgen/expressions/numbers.hpp"
-#include "latexgen/expressions/text.hpp"
 #include "latexgen/expressions/unary_expressions.hpp"
+#include "latexgen/expressions/numbers.hpp"
 
 using namespace latexgen;
 
 int main() {
-    // Number test
-    const Number* const zero = new Number("0");
-    const Number* const one = new Number("1");
+    // Unary expression tests
+    Expression* dummy = new Number("3.141592");
+    UnaryPlus* unary_plus = new UnaryPlus(dummy);
+    UnaryMinus* unary_minus = new UnaryMinus(dummy);
+    AbsoluteValue* absolute_value = new AbsoluteValue(dummy);
+    SquareRoot* square_root = new SquareRoot(dummy);
+    CubeRoot* cube_root = new CubeRoot(dummy);
+    Floor* floor = new Floor(dummy);
+    Ceiling* ceiling = new Ceiling(dummy);
 
-    std::cout << zero->to_latex() << " " << one->to_latex() << "\n";
+    std::cout << dummy->to_latex() << "\n"
+        << unary_plus->to_latex() << "\n"
+        << unary_minus->to_latex() << "\n"
+        << absolute_value->to_latex() << "\n"
+        << square_root->to_latex() << "\n"
+        << cube_root->to_latex() << "\n"
+        << floor->to_latex() << "\n"
+        << ceiling->to_latex() << "\n";
 
-    // Text test
-    const Text* const hello_world = new Text("Hello World! :\\, welcome to {LaTeX} & I hope you have fun in there. I have $10 in my budget rn, my_budget = 10^1 # Assigns my budget. I also have a 10% discount");
-    std::cout << hello_world->to_latex() << "\n";
-
-    // Unary expression test
-    const UnaryExpression* const unary = new UnaryExpression(UnaryExpressionType::CUBE_ROOT, one);
-    std::cout << unary->to_latex() << "\n";
-
-    delete zero;
-    delete one;
-    delete hello_world;
-    delete unary;
+    // Free the memory
+    delete dummy;
+    delete unary_plus;
+    delete unary_minus;
+    delete absolute_value;
+    delete square_root;
+    delete cube_root;
+    delete floor;
+    delete ceiling;
     return 0;
 }
