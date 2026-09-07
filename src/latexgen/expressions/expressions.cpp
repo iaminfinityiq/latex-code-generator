@@ -5,4 +5,8 @@ namespace latexgen {
     std::string Expression::to_latex() const {
         return "";
     }
+
+    ExpressionType Expression::get_type() const {
+        return this->type;
+    }
 }

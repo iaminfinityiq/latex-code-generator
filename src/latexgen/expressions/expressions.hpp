@@ -28,6 +28,11 @@ namespace latexgen {
          * @return the desired LaTeX code for the expression
          */
         virtual std::string to_latex() const;
+        /**
+         * Gets the expression type
+         * @return the expression type
+         */
+        ExpressionType get_type() const;
     private:
         ExpressionType type;
     };

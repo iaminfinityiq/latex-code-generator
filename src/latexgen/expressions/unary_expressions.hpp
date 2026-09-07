@@ -10,10 +10,10 @@ namespace latexgen {
         PLUS, // +expr
         MINUS, // -expr
         ABSOLUTE_VALUE, // |expr|
-        SQUARE_ROOT,
-        CUBE_ROOT,
-        FLOOR,
-        CEILING
+        SQUARE_ROOT, // sqrt(expr)
+        CUBE_ROOT, // cbrt(expr)
+        FLOOR, // floor(expr)
+        CEILING // ceil(expr)
     };
 
     /**
@@ -23,17 +23,22 @@ namespace latexgen {
     public:
         /**
          * A unary expression constructor
-         * @param unary_type the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
+         * @param op the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
          * @param value the value to perform the unary operation on
          */
-        UnaryExpression(const UnaryExpressionType unary_type, const Expression* const value);
+        UnaryExpression(const UnaryExpressionType op, const Expression* const value);
         /**
          * Turns the desired unary expression into LaTeX
          * @return the desired LaTeX code for the unary expression
          */
         std::string to_latex() const override;
+        /**
+         * Gets the unary expression type
+         * @return the unary expression type
+         */
+        UnaryExpressionType get_unary_type() const;
     private:
-        const UnaryExpressionType unary_type;
+        const UnaryExpressionType op;
         const Expression* value;
     };
 
@@ -113,4 +118,47 @@ namespace latexgen {
          */
         Ceiling(const Expression* const value);
     };
+
+    /**
+     * Generates a pointer to a new instance of unary plus
+     * @param value represents the value to perform unary plus
+     * @return a pointer to a new instance of unary plus, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* unary_plus(const Expression* const value);
+    /**
+     * Generates a pointer to a new instance of unary minus
+     * @param value represents the value to perform unary minus
+     * @return a pointer to a new instance of unary minus, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* unary_minus(const Expression* const value);
+    /**
+     * Generates a pointer to a new instance of absolute value
+     * @param value represents the value to perform absolute value
+     * @return a pointer to a new instance of absolute value, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* absolute_value(const Expression* const value);
+    /**
+     * Generates a pointer to a new instance of square root
+     * @param value represents the value to perform square root
+     * @return a pointer to a new instance of square root, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* square_root(const Expression* const value);
+    /**
+     * Generates a pointer to a new instance of cube root
+     * @param value represents the value to perform cube root
+     * @return a pointer to a new instance of cube root, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* cube_root(const Expression* const value);
+    /**
+     * Generates a pointer to a new instance of flooring
+     * @param value represents the value to perform a floor operation
+     * @return a pointer to a new instance of flooring, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* floor(const Expression* const value);
+    /**
+     * Generates a pointer to a new instance of ceiling
+     * @param value represents the value to perform a ceiling operation
+     * @return a pointer to a new instance of ceiling, this pointer has a type of UnaryExpression*
+     */
+    UnaryExpression* ceiling(const Expression* const value);
 }
