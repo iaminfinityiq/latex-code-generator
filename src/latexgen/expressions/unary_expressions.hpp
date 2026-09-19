@@ -1,5 +1,6 @@
 #pragma once
 #include "expressions.hpp"
+#include <memory>
 
 namespace latexgen {
     /**
@@ -26,7 +27,7 @@ namespace latexgen {
          * @param op the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
          * @param value the value to perform the unary operation on
          */
-        UnaryExpression(const UnaryExpressionType op, const Expression* const value);
+        UnaryExpression(const UnaryExpressionType op, const std::shared_ptr<Expression> &value);
         /**
          * Turns the desired unary expression into LaTeX
          * @return the desired LaTeX code for the unary expression
@@ -37,10 +38,22 @@ namespace latexgen {
          * @return the unary expression type
          */
         UnaryExpressionType get_unary_type() const;
+        /**
+         * Gets the value to perform on
+         * @return the value to perform on
+         */
+        std::shared_ptr<Expression> get_value() const;
     private:
         const UnaryExpressionType op;
-        const Expression* value;
+        const std::shared_ptr<Expression> value;
     };
+
+    /**
+     * Checks if a unary expression is a unary additive (+expr or -expr)
+     * @param unary the unary expression needed to check
+     * @return `true` if the expression is unary additive, otherwise `false`
+     */
+    bool is_unary_additive(const std::shared_ptr<UnaryExpression> &unary);
 
     /**
      * Represents a unary plus expression, represented by +expr
@@ -50,7 +63,7 @@ namespace latexgen {
          * A unary plus constructor
          * @param value represents the value to perform unary plus
          */
-        UnaryPlus(const Expression* const value);
+        UnaryPlus(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -61,7 +74,7 @@ namespace latexgen {
          * A unary plus constructor
          * @param value represents the value to perform unary minus
          */
-        UnaryMinus(const Expression* const value);
+        UnaryMinus(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -72,7 +85,7 @@ namespace latexgen {
          * An absolute value constructor
          * @param value represents the value to perform absolute value
          */
-        AbsoluteValue(const Expression* const value);
+        AbsoluteValue(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -83,7 +96,7 @@ namespace latexgen {
          * A square root constructor
          * @param value represents the value to perform square root
          */
-        SquareRoot(const Expression* const value);
+        SquareRoot(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -94,7 +107,7 @@ namespace latexgen {
          * A cube root constructor
          * @param value represents the value to perform cube root
          */
-        CubeRoot(const Expression* const value);
+        CubeRoot(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -105,7 +118,7 @@ namespace latexgen {
          * A floor constructor
          * @param value represents the value to perform flooring
          */
-        Floor(const Expression* const value);
+        Floor(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -116,7 +129,7 @@ namespace latexgen {
          * A ceiling constructor
          * @param value represents the value to perform ceiling
          */
-        Ceiling(const Expression* const value);
+        Ceiling(const std::shared_ptr<Expression> &value);
     };
 
     /**
@@ -124,41 +137,41 @@ namespace latexgen {
      * @param value represents the value to perform unary plus
      * @return a pointer to a new instance of unary plus, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* unary_plus(const Expression* const value);
+    std::shared_ptr<UnaryExpression> unary_plus(const std::shared_ptr<Expression> &value);
     /**
      * Generates a pointer to a new instance of unary minus
      * @param value represents the value to perform unary minus
      * @return a pointer to a new instance of unary minus, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* unary_minus(const Expression* const value);
+    std::shared_ptr<UnaryExpression> unary_minus(const std::shared_ptr<Expression> &value);
     /**
      * Generates a pointer to a new instance of absolute value
      * @param value represents the value to perform absolute value
      * @return a pointer to a new instance of absolute value, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* absolute_value(const Expression* const value);
+    std::shared_ptr<UnaryExpression> absolute_value(const std::shared_ptr<Expression> &value);
     /**
      * Generates a pointer to a new instance of square root
      * @param value represents the value to perform square root
      * @return a pointer to a new instance of square root, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* square_root(const Expression* const value);
+    std::shared_ptr<UnaryExpression> square_root(const std::shared_ptr<Expression> &value);
     /**
      * Generates a pointer to a new instance of cube root
      * @param value represents the value to perform cube root
      * @return a pointer to a new instance of cube root, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* cube_root(const Expression* const value);
+    std::shared_ptr<UnaryExpression> cube_root(const std::shared_ptr<Expression> &value);
     /**
      * Generates a pointer to a new instance of flooring
      * @param value represents the value to perform a floor operation
      * @return a pointer to a new instance of flooring, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* floor(const Expression* const value);
+    std::shared_ptr<UnaryExpression> floor(const std::shared_ptr<Expression> &value);
     /**
      * Generates a pointer to a new instance of ceiling
      * @param value represents the value to perform a ceiling operation
      * @return a pointer to a new instance of ceiling, this pointer has a type of UnaryExpression*
      */
-    UnaryExpression* ceiling(const Expression* const value);
+    std::shared_ptr<UnaryExpression> ceiling(const std::shared_ptr<Expression> &value);
 }

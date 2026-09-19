@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 
 namespace latexgen {
     /**
@@ -9,7 +10,8 @@ namespace latexgen {
         NUMBER,
         TEXT,
         UNARY,
-        BINARY
+        BINARY,
+        VARIABLE
     };
 
     /**
@@ -22,7 +24,6 @@ namespace latexgen {
          * @param Expression type
          */
         Expression(ExpressionType type);
-        virtual ~Expression() = default;
         /**
          * Turns the desired expression to LaTeX
          * @return the desired LaTeX code for the expression
@@ -36,4 +37,11 @@ namespace latexgen {
     private:
         ExpressionType type;
     };
+
+    /**
+     * Checks if an expression is a primary expression
+     * @param expr the expression needed to check
+     * @return `true` if the desired expression is a primary expression, otherwise `false`
+     */
+    bool is_primary(const std::shared_ptr<Expression> &expr);
 }

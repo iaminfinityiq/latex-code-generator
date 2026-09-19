@@ -2,39 +2,44 @@
 #include "binary_expressions.hpp"
 
 namespace latexgen {
-    UnaryExpression::UnaryExpression(const UnaryExpressionType op, const Expression* const value) : Expression(ExpressionType::UNARY), op(op), value(value) {}
+    bool is_unary_additive(const std::shared_ptr<UnaryExpression> &unary) {
+        UnaryExpressionType type = unary->get_unary_type();
+        return type == UnaryExpressionType::PLUS || type == UnaryExpressionType::MINUS;
+    }
+
+    UnaryExpression::UnaryExpression(const UnaryExpressionType op, const std::shared_ptr<Expression> &value) : Expression(ExpressionType::UNARY), op(op), value(value) {}
     std::string UnaryExpression::to_latex() const {
-        switch (this->op) {
+        switch (this->get_unary_type()) {
             case UnaryExpressionType::GROUPING:
-                return "\\left(" + this->value->to_latex() + "\\right)";
+                return "\\left(" + this->get_value()->to_latex() + "\\right)";
             case UnaryExpressionType::PLUS:
-                if (this->value->get_type() == ExpressionType::BINARY) {
-                    const BinaryExpression* const value_binary = static_cast<const BinaryExpression*>(this->value);
+                if (this->get_value()->get_type() == ExpressionType::BINARY) {
+                    std::shared_ptr<BinaryExpression> value_binary = std::static_pointer_cast<BinaryExpression>(this->get_value());
                     if (is_additive(value_binary)) {
-                        return "+\\left(" + this->value->to_latex() + "\\right)";
+                        return "+\\left(" + this->get_value()->to_latex() + "\\right)";
                     }
                 }
 
-                return "+" + this->value->to_latex();
+                return "+" + this->get_value()->to_latex();
             case UnaryExpressionType::MINUS:
-                if (this->value->get_type() == ExpressionType::BINARY) {
-                    const BinaryExpression* const value_binary = static_cast<const BinaryExpression*>(this->value);
+                if (this->get_value()->get_type() == ExpressionType::BINARY) {
+                    std::shared_ptr<BinaryExpression> value_binary = std::static_pointer_cast<BinaryExpression>(this->get_value());
                     if (is_additive(value_binary)) {
-                        return "-\\left(" + this->value->to_latex() + "\\right)";
+                        return "-\\left(" + this->get_value()->to_latex() + "\\right)";
                     }
                 }
 
-                return "-" + this->value->to_latex();
+                return "-" + this->get_value()->to_latex();
             case UnaryExpressionType::ABSOLUTE_VALUE:
-                return "\\left|" + this->value->to_latex() + "\\right|";
+                return "\\left|" + this->get_value()->to_latex() + "\\right|";
             case UnaryExpressionType::SQUARE_ROOT:
-                return "\\sqrt{" + this->value->to_latex() + "}";
+                return "\\sqrt{" + this->get_value()->to_latex() + "}";
             case UnaryExpressionType::CUBE_ROOT:
-                return "\\sqrt[3]{" + this->value->to_latex() + "}";
+                return "\\sqrt[3]{" + this->get_value()->to_latex() + "}";
             case UnaryExpressionType::FLOOR:
-                return "\\left\\lfloor " + this->value->to_latex() + "\\right\\rfloor";
+                return "\\left\\lfloor " + this->get_value()->to_latex() + "\\right\\rfloor";
             case UnaryExpressionType::CEILING:
-                return "\\left\\lceil " + this->value->to_latex() + "\\right\\rceil";
+                return "\\left\\lceil " + this->get_value()->to_latex() + "\\right\\rceil";
             default:
                 return "this is broken";
         }
@@ -44,39 +49,43 @@ namespace latexgen {
         return this->op;
     }
 
-    UnaryPlus::UnaryPlus(const Expression* const value) : UnaryExpression(UnaryExpressionType::PLUS, value) {}
-    UnaryMinus::UnaryMinus(const Expression* const value) : UnaryExpression(UnaryExpressionType::MINUS, value) {}
-    AbsoluteValue::AbsoluteValue(const Expression* const value) : UnaryExpression(UnaryExpressionType::ABSOLUTE_VALUE, value) {}
-    SquareRoot::SquareRoot(const Expression* const value) : UnaryExpression(UnaryExpressionType::SQUARE_ROOT, value) {}
-    CubeRoot::CubeRoot(const Expression* const value) : UnaryExpression(UnaryExpressionType::CUBE_ROOT, value) {}
-    Floor::Floor(const Expression* const value) : UnaryExpression(UnaryExpressionType::FLOOR, value) {}
-    Ceiling::Ceiling(const Expression* const value) : UnaryExpression(UnaryExpressionType::CEILING, value) {}
-
-    UnaryExpression* unary_plus(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::PLUS, value);
+    std::shared_ptr<Expression> UnaryExpression::get_value() const {
+        return this->value;
     }
 
-    UnaryExpression* unary_minus(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::MINUS, value);
+    UnaryPlus::UnaryPlus(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::PLUS, value) {}
+    UnaryMinus::UnaryMinus(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::MINUS, value) {}
+    AbsoluteValue::AbsoluteValue(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::ABSOLUTE_VALUE, value) {}
+    SquareRoot::SquareRoot(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::SQUARE_ROOT, value) {}
+    CubeRoot::CubeRoot(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::CUBE_ROOT, value) {}
+    Floor::Floor(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::FLOOR, value) {}
+    Ceiling::Ceiling(const std::shared_ptr<Expression> &value) : UnaryExpression(UnaryExpressionType::CEILING, value) {}
+
+    std::shared_ptr<UnaryExpression> unary_plus(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::PLUS, value);
     }
 
-    UnaryExpression* absolute_value(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::ABSOLUTE_VALUE, value);
+    std::shared_ptr<UnaryExpression> unary_minus(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::MINUS, value);
     }
 
-    UnaryExpression* square_root(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::SQUARE_ROOT, value);
+    std::shared_ptr<UnaryExpression> absolute_value(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::ABSOLUTE_VALUE, value);
     }
 
-    UnaryExpression* cube_root(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::CUBE_ROOT, value);
+    std::shared_ptr<UnaryExpression> square_root(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::SQUARE_ROOT, value);
     }
 
-    UnaryExpression* floor(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::FLOOR, value);
+    std::shared_ptr<UnaryExpression> cube_root(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::CUBE_ROOT, value);
     }
 
-    UnaryExpression* ceiling(const Expression* const value) {
-        return new UnaryExpression(UnaryExpressionType::CEILING, value);
+    std::shared_ptr<UnaryExpression> floor(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::FLOOR, value);
+    }
+
+    std::shared_ptr<UnaryExpression> ceiling(const std::shared_ptr<Expression> &value) {
+        return std::make_shared<UnaryExpression>(UnaryExpressionType::CEILING, value);
     }
 }
