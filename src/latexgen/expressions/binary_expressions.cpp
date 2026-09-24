@@ -312,4 +312,44 @@ namespace latexgen {
 
         return "\\log_{" + this->get_left()->to_latex() + (group_right ? "}{\\left(" : "}{") + this->get_right()->to_latex() + (group_right ? "\\right)}" : "}");
     }
+
+    std::shared_ptr<BinaryExpression> addition(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right) {
+        return std::make_shared<BinaryExpression>(left, BinaryExpressionType::ADDITION, right);
+    }
+
+    std::shared_ptr<BinaryExpression> subtraction(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right) {
+        return std::make_shared<BinaryExpression>(left, BinaryExpressionType::SUBTRACTION, right);
+    }
+
+    std::shared_ptr<BinaryExpression> multiplication(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right) {
+        return std::make_shared<BinaryExpression>(left, BinaryExpressionType::MULTIPLICATION, right);
+    }
+
+    std::shared_ptr<BinaryExpression> division(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right) {
+        return std::make_shared<BinaryExpression>(left, BinaryExpressionType::DIVISION, right);
+    }
+
+    std::shared_ptr<BinaryExpression> fraction(const std::shared_ptr<Expression> &numerator, const std::shared_ptr<Expression> &denominator) {
+        return std::make_shared<BinaryExpression>(numerator, BinaryExpressionType::FRACTION, denominator);
+    }
+
+    std::shared_ptr<BinaryExpression> exponentiation(const std::shared_ptr<Expression> &base, const std::shared_ptr<Expression> &exponent) {
+        return std::make_shared<BinaryExpression>(base, BinaryExpressionType::EXPONENTIATION, exponent);
+    }
+
+    std::shared_ptr<BinaryExpression> radication(const std::shared_ptr<Expression> &radicand, const std::shared_ptr<Expression> &index) {
+        return std::make_shared<BinaryExpression>(index, BinaryExpressionType::RADICATION, radicand);
+    }
+
+    std::shared_ptr<BinaryExpression> logarithm(const std::shared_ptr<Expression> &argument, const std::shared_ptr<Expression> &base) {
+        return std::make_shared<BinaryExpression>(base, BinaryExpressionType::LOGARITHM, argument);
+    }
+
+    std::shared_ptr<BinaryExpression> plus_minus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right) {
+        return std::make_shared<BinaryExpression>(left, BinaryExpressionType::PLUS_MINUS, right);
+    }
+
+    std::shared_ptr<BinaryExpression> minus_plus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right) {
+        return std::make_shared<BinaryExpression>(left, BinaryExpressionType::MINUS_PLUS, right);
+    }
 }

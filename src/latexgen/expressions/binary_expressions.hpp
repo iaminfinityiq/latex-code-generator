@@ -228,4 +228,84 @@ namespace latexgen {
          */
         MinusPlus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
     };
+
+    /**
+     * Generates a pointer points to an addition expression
+     * @param left the left side of the expression
+     * @param right the right side of the expression
+     * @return a pointer points to an addition expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> addition(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+
+    /**
+     * Generates a pointer points to a subtraction expression
+     * @param left the left side of the expression
+     * @param right the right side of the expression
+     * @return a pointer points to a subtraction expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> subtraction(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+
+    /**
+     * Generates a pointer points to a multiplication expression
+     * @param left the left side of the expression
+     * @param right the right side of the expression
+     * @return a pointer points to a multiplication expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> multiplication(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+
+    /**
+     * Generates a pointer points to a division expression
+     * @param left the left side of the expression
+     * @param right the right side of the expression
+     * @return a pointer points to a division expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> division(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+
+    /**
+     * Generates a pointer points to a fraction
+     * @param numerator the numerator
+     * @param denominator the denominator
+     * @return a pointer points to a fraction, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> fraction(const std::shared_ptr<Expression> &numerator, const std::shared_ptr<Expression> &denominator);
+
+    /**
+     * Generates a pointer points to an exponentiatino expression
+     * @param base the base
+     * @param exponent the exponent
+     * @return a pointer points to an exponentiation expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> exponentiation(const std::shared_ptr<Expression> &base, const std::shared_ptr<Expression> &exponent);
+
+    /**
+     * Generates a pointer points to a radication expression
+     * @param radicand the radicand
+     * @param index the index
+     * @return a pointer points to a radication expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> radication(const std::shared_ptr<Expression> &radicand, const std::shared_ptr<Expression> &index);
+
+    /**
+     * Generates a pointer points to an addition expression
+     * @param argument the argument
+     * @param base the base
+     * @return a pointer points to a logarithm expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> logarithm(const std::shared_ptr<Expression> &argument, const std::shared_ptr<Expression> &base);
+
+    /**
+     * Generates a pointer points to a plus or minus expression
+     * @param left the left side of the expression
+     * @param right the right side of the expression
+     * @return a pointer points to an addition expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> plus_minus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+
+    /**
+     * Generates a pointer points to a minus or plus expression
+     * @param left the left side of the expression
+     * @param right the right side of the expression
+     * @return a pointer points to an addition expression, this pointer has a type of BinaryExpression*
+     */
+    std::shared_ptr<BinaryExpression> minus_plus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
 }
