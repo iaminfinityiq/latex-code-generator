@@ -1,5 +1,6 @@
 #include "unary_expressions.hpp"
 #include "binary_expressions.hpp"
+#include "../exceptions.hpp"
 
 namespace latexgen {
     bool is_unary_additive(const std::shared_ptr<UnaryExpression> &unary) {
@@ -7,7 +8,12 @@ namespace latexgen {
         return type == UnaryExpressionType::PLUS || type == UnaryExpressionType::MINUS;
     }
 
-    UnaryExpression::UnaryExpression(const UnaryExpressionType op, const std::shared_ptr<Expression> &value) : Expression(ExpressionType::UNARY), op(op), value(value) {}
+    UnaryExpression::UnaryExpression(const UnaryExpressionType op, const std::shared_ptr<Expression> &value) : Expression(ExpressionType::UNARY), op(op), value(value) {
+        if (this->value == nullptr) {
+            throw NullptrException("value parameter of UnaryExpression cannot be nullptr");
+        }
+    }
+
     std::string UnaryExpression::to_latex() const {
         switch (this->get_unary_type()) {
             case UnaryExpressionType::GROUPING:

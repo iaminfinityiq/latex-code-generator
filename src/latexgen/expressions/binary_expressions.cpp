@@ -1,6 +1,7 @@
 #include "binary_expressions.hpp"
-#include "numbers.hpp"
+#include "expressions.hpp"
 #include "unary_expressions.hpp"
+#include "../exceptions.hpp"
 
 namespace latexgen {
     bool is_additive(const std::shared_ptr<BinaryExpression> &binary) {
@@ -20,7 +21,16 @@ namespace latexgen {
             || type == BinaryExpressionType::DIVISION;
     }
     
-    BinaryExpression::BinaryExpression(const std::shared_ptr<Expression> &left, const BinaryExpressionType op, const std::shared_ptr<Expression> &right) : Expression(ExpressionType::BINARY), left(left), op(op), right(right) {}
+    BinaryExpression::BinaryExpression(const std::shared_ptr<Expression> &left, const BinaryExpressionType op, const std::shared_ptr<Expression> &right) : Expression(ExpressionType::BINARY), left(left), op(op), right(right) {
+        if (this->left == nullptr) {
+            throw NullptrException("left parameter of BinaryExpression cannot be nullptr");
+        }
+
+        if (this->right == nullptr) {
+            throw NullptrException("right parameter of BinaryExpression cannot be nullptr");
+        }
+    }
+
     std::string BinaryExpression::to_latex() const {
         switch (this->get_binary_type()) {
             case BinaryExpressionType::ADDITION: {
@@ -58,11 +68,15 @@ namespace latexgen {
 
                 bool group_left = false;
                 bool group_right = false;
-
+                bool is_fraction = false;
                 if (this->get_left()->get_type() == ExpressionType::BINARY) {
                     std::shared_ptr<BinaryExpression> left_binary = std::static_pointer_cast<BinaryExpression>(this->get_left());
                     if (is_additive(left_binary)) {
                         group_left = true;
+                    }
+
+                    if (left_binary->get_binary_type() == BinaryExpressionType::FRACTION) {
+                        is_fraction = true;
                     }
                 }
 
@@ -70,6 +84,10 @@ namespace latexgen {
                     std::shared_ptr<BinaryExpression> right_binary = std::static_pointer_cast<BinaryExpression>(this->get_right());
                     if (is_additive(right_binary)) {
                         group_right = true;
+                    }
+
+                    if (right_binary->get_binary_type() == BinaryExpressionType::FRACTION) {
+                        is_fraction = true;
                     }
                 }
 
@@ -80,7 +98,7 @@ namespace latexgen {
                     }
                 }
 
-                return (group_left ? "\\left(" : "") + this->get_left()->to_latex() + (group_left ? "\\right)" : "") + (group_right ? "\\left(" : "") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
+                return (group_left ? "\\left(" : "") + this->get_left()->to_latex() + (group_left ? "\\right)" : "") + (is_fraction ? "\\cdot " : " ") + (group_right ? "\\left(" : "") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
             } case BinaryExpressionType::MULTIPLICATION_MUL: {
                 bool group_left = false;
                 bool group_right = false;
@@ -132,7 +150,7 @@ namespace latexgen {
                     }
                 }
 
-                return (group_left ? "\\left(" : "") + this->get_left()->to_latex() + (group_left ? "\\right)\\cdot" : "\\cdot ") + (group_right ? "\\left(" : "") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
+                return (group_left ? "\\left(" : "") + this->get_left()->to_latex() + (group_left ? "\\right)\\cdot " : "\\cdot ") + (group_right ? "\\left(" : "") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
             } case BinaryExpressionType::MULTIPLICATION_NONE: {
                 bool group_left = false;
                 bool group_right = false;
