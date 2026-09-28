@@ -2,6 +2,7 @@
 #include "expressions.hpp"
 #include "unary_expressions.hpp"
 #include "../exceptions.hpp"
+#include <memory>
 
 namespace latexgen {
     bool is_additive(const std::shared_ptr<BinaryExpression> &binary) {
@@ -62,21 +63,12 @@ namespace latexgen {
 
                 return this->get_left()->to_latex() + (group_right ? "-\\left(" : "-") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
             } case BinaryExpressionType::MULTIPLICATION: {
-                if (this->get_left()->get_type() == ExpressionType::NUMBER && this->get_right()->get_type() == ExpressionType::NUMBER) {
-                    return this->get_left()->to_latex() + "\\cdot" + this->get_right()->to_latex();
-                }
-
                 bool group_left = false;
                 bool group_right = false;
-                bool is_fraction = false;
                 if (this->get_left()->get_type() == ExpressionType::BINARY) {
                     std::shared_ptr<BinaryExpression> left_binary = std::static_pointer_cast<BinaryExpression>(this->get_left());
                     if (is_additive(left_binary)) {
                         group_left = true;
-                    }
-
-                    if (left_binary->get_binary_type() == BinaryExpressionType::FRACTION) {
-                        is_fraction = true;
                     }
                 }
 
@@ -84,10 +76,6 @@ namespace latexgen {
                     std::shared_ptr<BinaryExpression> right_binary = std::static_pointer_cast<BinaryExpression>(this->get_right());
                     if (is_additive(right_binary)) {
                         group_right = true;
-                    }
-
-                    if (right_binary->get_binary_type() == BinaryExpressionType::FRACTION) {
-                        is_fraction = true;
                     }
                 }
 
@@ -98,7 +86,32 @@ namespace latexgen {
                     }
                 }
 
-                return (group_left ? "\\left(" : "") + this->get_left()->to_latex() + (group_left ? "\\right)" : "") + (is_fraction ? "\\cdot " : " ") + (group_right ? "\\left(" : "") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
+                bool use_cdot = false;
+                bool left_is_number = is_primary(this->get_left()); 
+                if (this->get_left()->get_type() == ExpressionType::UNARY) {
+                    std::shared_ptr<UnaryExpression> left_unary = std::static_pointer_cast<UnaryExpression>(this->get_left());
+                    if (is_unary_additive(left_unary)) {
+                        left_is_number = true;
+                    }
+                } else if (this->get_left()->get_type() == ExpressionType::BINARY) {
+                    std::shared_ptr<BinaryExpression> left_binary = std::static_pointer_cast<BinaryExpression>(this->get_left());
+                    if (left_binary->get_binary_type() == BinaryExpressionType::FRACTION) {
+                        left_is_number = true;
+                    }
+                }
+
+                if (left_is_number) {
+                    if (is_primary(this->get_right())) {
+                        use_cdot = this->get_right()->get_type() != ExpressionType::VARIABLE && this->get_right()->get_type() != ExpressionType::TEXT;
+                    } else if (this->get_right()->get_type() == ExpressionType::BINARY) {
+                        std::shared_ptr<BinaryExpression> right_binary = std::static_pointer_cast<BinaryExpression>(this->get_right());
+                        if (right_binary->get_binary_type() == BinaryExpressionType::FRACTION) {
+                            use_cdot = true;
+                        }
+                    }
+                }
+
+                return (group_left ? "\\left(" : "") + this->get_left()->to_latex() + (group_left ? "\\right)" : "") + (use_cdot ? "\\cdot " : " ") + (group_right ? "\\left(" : "") + this->get_right()->to_latex() + (group_right ? "\\right)" : "");
             } case BinaryExpressionType::MULTIPLICATION_MUL: {
                 bool group_left = false;
                 bool group_right = false;
@@ -211,11 +224,7 @@ namespace latexgen {
             } case BinaryExpressionType::RADICATION:
                 return "\\sqrt[" + this->get_left()->to_latex() + "]{" + this->get_right()->to_latex() + "}";
             case BinaryExpressionType::LOGARITHM: {
-                bool group_right = false;
-                if (is_primary(this->get_right())) {
-                    group_right = true;
-                }
-
+                bool group_right = !is_primary(this->get_right());
                 return "\\log_{" + this->get_left()->to_latex() + (group_right ? "}{\\left(" : "}{") + this->get_right()->to_latex() + (group_right ? "\\right)}" : "}");
             } case BinaryExpressionType::PLUS_MINUS: {
                 bool group_right = false;
@@ -319,11 +328,7 @@ namespace latexgen {
     }
 
     std::string Logarithm::to_latex() const {
-        bool group_right = false;
-        if (is_primary(this->get_right())) {
-            group_right = true;
-        }
-
+        bool group_right = !is_primary(this->get_right());
         if (this->full_display) {
             return "\\log_{\\displaystyle{" + this->get_left()->to_latex() + (group_right ? "}}{\\left(" : "}}{") + this->get_right()->to_latex() + (group_right ? "\\right)}" : "}");
         }
