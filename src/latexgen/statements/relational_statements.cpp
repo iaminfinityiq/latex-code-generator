@@ -39,6 +39,10 @@ namespace latexgen {
                 return lhs_str + "\\geq " + this->rhs->to_latex();
             case RelationalType::SMALLER_THAN_OR_EQUALS:
                 return lhs_str + "\\leq " + this->rhs->to_latex();
+            case RelationalType::IN:
+                return lhs_str + "\\in " + this->rhs->to_latex();
+            case RelationalType::NOT_IN:
+                return lhs_str + "\\not\\in " + this->rhs->to_latex();
             default:
                 return "this is broken wtf";
         }
