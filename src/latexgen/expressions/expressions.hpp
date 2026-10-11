@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include "../items.hpp"
 #include <memory>
 
 namespace latexgen {
@@ -17,18 +17,13 @@ namespace latexgen {
     /**
      * Base class for an expression
      */
-    struct Expression {
+    struct Expression : public Item {
     public:
         /**
          * An expression constructor
-         * @param Expression type
+         * @param type the type of the expression
          */
         Expression(ExpressionType type);
-        /**
-         * Turns the desired expression to LaTeX
-         * @return the desired LaTeX code for the expression
-         */
-        virtual std::string to_latex() const;
         /**
          * Gets the expression type
          * @return the expression type
