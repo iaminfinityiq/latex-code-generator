@@ -11,7 +11,8 @@ namespace latexgen {
         TEXT,
         UNARY,
         BINARY,
-        VARIABLE
+        VARIABLE,
+        SET
     };
 
     /**

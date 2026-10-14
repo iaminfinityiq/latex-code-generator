@@ -16,6 +16,7 @@ namespace latexgen {
     public:
         /**
          * Base constructor for a statement
+         * @param type the type of the statement
          */
         Statement(const StatementType type);
     private:

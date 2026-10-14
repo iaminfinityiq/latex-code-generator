@@ -24,8 +24,24 @@ namespace latexgen {
      */
     struct RelationalStatement : public Statement {
     public:
+        /**
+         * Constructor for a relational statement
+         * @param lhs the left expression
+         * @param op the relation operator
+         * @param rhs the right expression
+         */
         RelationalStatement(const std::shared_ptr<Expression> &lhs, const RelationalType op, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for a relational statement
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * @param op the relation operator
+         * @param rhs the right expression
+         */
         RelationalStatement(const std::shared_ptr<RelationalStatement> &lhs, const RelationalType op, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Returns the desired LaTeX code for the relational statement
+         * @return the desired LaTeX code for the relational statement
+         */
         std::string to_latex() const override;
     private:
         std::variant<
