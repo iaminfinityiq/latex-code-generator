@@ -7,7 +7,8 @@ namespace latexgen {
      */
     enum struct ItemType {
         EXPRESSION,
-        STATEMENT
+        STATEMENT,
+        DOTS
     };
 
     /**
