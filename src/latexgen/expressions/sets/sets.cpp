@@ -1,5 +1,5 @@
 #include "sets.hpp"
-#include "../exceptions.hpp"
+#include "../../exceptions.hpp"
 #include <string>
 
 namespace latexgen {
