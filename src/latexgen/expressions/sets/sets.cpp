@@ -3,18 +3,12 @@
 #include <string>
 
 namespace latexgen {
-    Set::Set(const std::vector<std::variant<
-        std::shared_ptr<Expression>,
-        std::shared_ptr<Dots>
-    >> &elements) : Expression(ExpressionType::SET), elements(elements) {
+    Set::Set(const std::vector<ExpressionOrDots> &elements) : Expression(ExpressionType::SET), elements(elements) {
         auto is_nullptr = [](auto &&ptr) -> bool {
             return ptr == nullptr;
         };
 
-        for (const std::variant<
-            std::shared_ptr<Expression>,
-            std::shared_ptr<Dots>
-        > &el : this->elements) {
+        for (const ExpressionOrDots &el : this->elements) {
             if (std::visit(is_nullptr, el)) {
                 throw NullptrException("there exists an element in the set which contains the value of nullptr, which is not allowed");
             }

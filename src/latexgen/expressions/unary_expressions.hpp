@@ -27,7 +27,7 @@ namespace latexgen {
          * @param op the type of operation for the unary expression, as listed in the enum `UnaryExpressionType`
          * @param value the value to perform the unary operation on
          */
-        UnaryExpression(const UnaryExpressionType op, const std::shared_ptr<Expression> &value);
+        UnaryExpression(const UnaryExpressionType op, const ExpressionOrDots &value);
         /**
          * Turns the desired unary expression into LaTeX
          * @return the desired LaTeX code for the unary expression
@@ -42,10 +42,10 @@ namespace latexgen {
          * Gets the value to perform on
          * @return the value to perform on
          */
-        std::shared_ptr<Expression> get_value() const;
+        ExpressionOrDots get_value() const;
     private:
         const UnaryExpressionType op;
-        const std::shared_ptr<Expression> value;
+        const ExpressionOrDots value;
     };
 
     /**
@@ -63,7 +63,7 @@ namespace latexgen {
          * A unary plus constructor
          * @param value represents the value to perform unary plus
          */
-        UnaryPlus(const std::shared_ptr<Expression> &value);
+        UnaryPlus(const ExpressionOrDots &value);
     };
 
     /**
@@ -74,7 +74,7 @@ namespace latexgen {
          * A unary plus constructor
          * @param value represents the value to perform unary minus
          */
-        UnaryMinus(const std::shared_ptr<Expression> &value);
+        UnaryMinus(const ExpressionOrDots &value);
     };
 
     /**
@@ -85,7 +85,7 @@ namespace latexgen {
          * An absolute value constructor
          * @param value represents the value to perform absolute value
          */
-        AbsoluteValue(const std::shared_ptr<Expression> &value);
+        AbsoluteValue(const ExpressionOrDots &value);
     };
 
     /**
@@ -96,7 +96,7 @@ namespace latexgen {
          * A square root constructor
          * @param value represents the value to perform square root
          */
-        SquareRoot(const std::shared_ptr<Expression> &value);
+        SquareRoot(const ExpressionOrDots &value);
     };
 
     /**
@@ -107,7 +107,7 @@ namespace latexgen {
          * A cube root constructor
          * @param value represents the value to perform cube root
          */
-        CubeRoot(const std::shared_ptr<Expression> &value);
+        CubeRoot(const ExpressionOrDots &value);
     };
 
     /**
@@ -118,7 +118,7 @@ namespace latexgen {
          * A floor constructor
          * @param value represents the value to perform flooring
          */
-        Floor(const std::shared_ptr<Expression> &value);
+        Floor(const ExpressionOrDots &value);
     };
 
     /**
@@ -129,7 +129,7 @@ namespace latexgen {
          * A ceiling constructor
          * @param value represents the value to perform ceiling
          */
-        Ceiling(const std::shared_ptr<Expression> &value);
+        Ceiling(const ExpressionOrDots &value);
     };
 
     /**
@@ -137,41 +137,41 @@ namespace latexgen {
      * @param value represents the value to perform unary plus
      * @return a pointer to a new instance of unary plus, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> unary_plus(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> unary_plus(const ExpressionOrDots &value);
     /**
      * Generates a pointer to a new instance of unary minus
      * @param value represents the value to perform unary minus
      * @return a pointer to a new instance of unary minus, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> unary_minus(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> unary_minus(const ExpressionOrDots &value);
     /**
      * Generates a pointer to a new instance of absolute value
      * @param value represents the value to perform absolute value
      * @return a pointer to a new instance of absolute value, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> absolute_value(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> absolute_value(const ExpressionOrDots &value);
     /**
      * Generates a pointer to a new instance of square root
      * @param value represents the value to perform square root
      * @return a pointer to a new instance of square root, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> square_root(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> square_root(const ExpressionOrDots &value);
     /**
      * Generates a pointer to a new instance of cube root
      * @param value represents the value to perform cube root
      * @return a pointer to a new instance of cube root, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> cube_root(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> cube_root(const ExpressionOrDots &value);
     /**
      * Generates a pointer to a new instance of flooring
      * @param value represents the value to perform a floor operation
      * @return a pointer to a new instance of flooring, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> floor(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> floor(const ExpressionOrDots &value);
     /**
      * Generates a pointer to a new instance of ceiling
      * @param value represents the value to perform a ceiling operation
      * @return a pointer to a new instance of ceiling, this pointer has a type of UnaryExpression*
      */
-    std::shared_ptr<UnaryExpression> ceiling(const std::shared_ptr<Expression> &value);
+    std::shared_ptr<UnaryExpression> ceiling(const ExpressionOrDots &value);
 }

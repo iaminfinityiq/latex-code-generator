@@ -1,6 +1,8 @@
 #pragma once
 #include "../items.hpp"
+#include "../dots.hpp"
 #include <memory>
+#include <variant>
 
 namespace latexgen {
     /**
@@ -40,4 +42,9 @@ namespace latexgen {
      * @return `true` if the desired expression is a primary expression, otherwise `false`
      */
     bool is_primary(const std::shared_ptr<Expression> &expr);
+    
+    using ExpressionOrDots = std::variant<
+        std::shared_ptr<Expression>,
+        std::shared_ptr<Dots>
+    >;
 }

@@ -33,7 +33,7 @@ namespace latexgen {
          * @param op binary expression type
          * @param right right node
          */
-        BinaryExpression(const std::shared_ptr<Expression> &left, const BinaryExpressionType op, const std::shared_ptr<Expression> &right);
+        BinaryExpression(const ExpressionOrDots &left, const BinaryExpressionType op, const ExpressionOrDots &right);
         /**
          * Turns the desired unary expression into LaTeX
          * @return the desired LaTeX code for the unary expression
@@ -48,16 +48,16 @@ namespace latexgen {
          * Gets the left side of the binary expression
          * @return the left side of the binary expression
          */
-        std::shared_ptr<Expression> get_left() const;
+        ExpressionOrDots get_left() const;
         /**
          * Gets the right side of the binary expression
          * @return the right side of the binary expression
          */
-        std::shared_ptr<Expression> get_right() const;
+        ExpressionOrDots get_right() const;
     private:
-        std::shared_ptr<Expression> left;
+        ExpressionOrDots left;
         BinaryExpressionType op;
-        std::shared_ptr<Expression> right;
+        ExpressionOrDots right;
     };
 
     /**
@@ -82,7 +82,7 @@ namespace latexgen {
          * @param left the left side of the expression
          * @param right the right side of the expression
          */
-        Addition(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+        Addition(const ExpressionOrDots &left, const ExpressionOrDots &right);
     };
     
     /**
@@ -94,7 +94,7 @@ namespace latexgen {
          * @param left the left side of the expression
          * @param right the right side of the expression
          */
-        Subtraction(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+        Subtraction(const ExpressionOrDots &left, const ExpressionOrDots &right);
     };
 
     /**
@@ -106,7 +106,7 @@ namespace latexgen {
          * @param left the left side of the expression
          * @param right the right side of the expression
          */
-        Multiplication(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+        Multiplication(const ExpressionOrDots &left, const ExpressionOrDots &right);
     };
     
     /**
@@ -118,7 +118,7 @@ namespace latexgen {
          * @param left the left side of the expression
          * @param right the right side of the expression
          */
-        Division(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+        Division(const ExpressionOrDots &left, const ExpressionOrDots &right);
     };
 
     /**
@@ -132,7 +132,7 @@ namespace latexgen {
          * @param denominator the denominator
          * @param full_display decides if the numerator and denominator would stay in their original size
          */
-        Fraction(const std::shared_ptr<Expression> &numerator, const std::shared_ptr<Expression> &denominator, const bool full_display = true);
+        Fraction(const ExpressionOrDots &numerator, const ExpressionOrDots &denominator, const bool full_display = true);
         /**
          * Turns the desired fraction into LaTeX. Numerators/denominators may be smaller or not, which depends on the `full_display` parameter
          * @return the desired LaTeX code for the fraction
@@ -153,7 +153,7 @@ namespace latexgen {
          * @param exponent the exponent
          * @param full_display decides if the exponent would stay in their original size
          */
-        Exponentiation(const std::shared_ptr<Expression> &base, const std::shared_ptr<Expression> &exponent, const bool full_display = false);
+        Exponentiation(const ExpressionOrDots &base, const ExpressionOrDots &exponent, const bool full_display = false);
         /**
          * Turns the desired exponentation expression into LaTeX. The exponent may be smaller or not, which depends on the `full_display` parameter
          * @return the desired LaTeX code for the exponentiation expression
@@ -174,7 +174,7 @@ namespace latexgen {
          * @param index the degree of the root
          * @param full_display decides if the index would stay in their original size
          */
-        Radication(const std::shared_ptr<Expression> &radicand, const std::shared_ptr<Expression> &index, const bool full_display = false);
+        Radication(const ExpressionOrDots &radicand, const ExpressionOrDots &index, const bool full_display = false);
         /**
          * Turns the desired radication expression into LaTeX. The index may be smaller or not, which depends on the `full_display` parameter
          * @return the desired LaTeX code for the radication expression
@@ -195,7 +195,7 @@ namespace latexgen {
          * @param base the base of the logarithm
          * @param full_display decides if the base would stay in their original size
          */
-        Logarithm(const std::shared_ptr<Expression> &argument, const std::shared_ptr<Expression> &base, const bool full_display = false);
+        Logarithm(const ExpressionOrDots &argument, const ExpressionOrDots &base, const bool full_display = false);
         /**
          * Turns the desired radication expression into LaTeX. The base may be smaller or not, which depends on the `full_display` parameter
          * @return the desired LaTeX code for the logarithm expression
@@ -214,7 +214,7 @@ namespace latexgen {
          * @param left the left side of the expression
          * @param right the right side of the expression
          */
-        PlusMinus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+        PlusMinus(const ExpressionOrDots &left, const ExpressionOrDots &right);
     };
     
     /**
@@ -226,7 +226,7 @@ namespace latexgen {
          * @param left the left side of the expression
          * @param right the right side of the expression
          */
-        MinusPlus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+        MinusPlus(const ExpressionOrDots &left, const ExpressionOrDots &right);
     };
 
     /**
@@ -235,7 +235,7 @@ namespace latexgen {
      * @param right the right side of the expression
      * @return a pointer points to an addition expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> addition(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+    std::shared_ptr<BinaryExpression> addition(const ExpressionOrDots &left, const ExpressionOrDots &right);
 
     /**
      * Generates a pointer points to a subtraction expression
@@ -243,7 +243,7 @@ namespace latexgen {
      * @param right the right side of the expression
      * @return a pointer points to a subtraction expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> subtraction(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+    std::shared_ptr<BinaryExpression> subtraction(const ExpressionOrDots &left, const ExpressionOrDots &right);
 
     /**
      * Generates a pointer points to a multiplication expression
@@ -251,7 +251,7 @@ namespace latexgen {
      * @param right the right side of the expression
      * @return a pointer points to a multiplication expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> multiplication(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+    std::shared_ptr<BinaryExpression> multiplication(const ExpressionOrDots &left, const ExpressionOrDots &right);
 
     /**
      * Generates a pointer points to a division expression
@@ -259,7 +259,7 @@ namespace latexgen {
      * @param right the right side of the expression
      * @return a pointer points to a division expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> division(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+    std::shared_ptr<BinaryExpression> division(const ExpressionOrDots &left, const ExpressionOrDots &right);
 
     /**
      * Generates a pointer points to a fraction
@@ -267,7 +267,7 @@ namespace latexgen {
      * @param denominator the denominator
      * @return a pointer points to a fraction, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> fraction(const std::shared_ptr<Expression> &numerator, const std::shared_ptr<Expression> &denominator);
+    std::shared_ptr<BinaryExpression> fraction(const ExpressionOrDots &numerator, const ExpressionOrDots &denominator);
 
     /**
      * Generates a pointer points to an exponentiatino expression
@@ -275,7 +275,7 @@ namespace latexgen {
      * @param exponent the exponent
      * @return a pointer points to an exponentiation expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> exponentiation(const std::shared_ptr<Expression> &base, const std::shared_ptr<Expression> &exponent);
+    std::shared_ptr<BinaryExpression> exponentiation(const ExpressionOrDots &base, const ExpressionOrDots &exponent);
 
     /**
      * Generates a pointer points to a radication expression
@@ -283,7 +283,7 @@ namespace latexgen {
      * @param index the index
      * @return a pointer points to a radication expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> radication(const std::shared_ptr<Expression> &radicand, const std::shared_ptr<Expression> &index);
+    std::shared_ptr<BinaryExpression> radication(const ExpressionOrDots &radicand, const ExpressionOrDots &index);
 
     /**
      * Generates a pointer points to an addition expression
@@ -291,7 +291,7 @@ namespace latexgen {
      * @param base the base
      * @return a pointer points to a logarithm expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> logarithm(const std::shared_ptr<Expression> &argument, const std::shared_ptr<Expression> &base);
+    std::shared_ptr<BinaryExpression> logarithm(const ExpressionOrDots &argument, const ExpressionOrDots &base);
 
     /**
      * Generates a pointer points to a plus or minus expression
@@ -299,7 +299,7 @@ namespace latexgen {
      * @param right the right side of the expression
      * @return a pointer points to an addition expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> plus_minus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+    std::shared_ptr<BinaryExpression> plus_minus(const ExpressionOrDots &left, const ExpressionOrDots &right);
 
     /**
      * Generates a pointer points to a minus or plus expression
@@ -307,5 +307,5 @@ namespace latexgen {
      * @param right the right side of the expression
      * @return a pointer points to an addition expression, this pointer has a type of BinaryExpression*
      */
-    std::shared_ptr<BinaryExpression> minus_plus(const std::shared_ptr<Expression> &left, const std::shared_ptr<Expression> &right);
+    std::shared_ptr<BinaryExpression> minus_plus(const ExpressionOrDots &left, const ExpressionOrDots &right);
 }
