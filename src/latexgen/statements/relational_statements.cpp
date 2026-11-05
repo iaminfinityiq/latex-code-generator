@@ -47,4 +47,21 @@ namespace latexgen {
                 return "this is broken wtf";
         }
     }
+
+    Equality::Equality(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::EQUALITY, rhs) {}
+    Equality::Equality(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::EQUALITY, rhs) {}
+    Inequality::Inequality(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::INEQUALITY, rhs) {}
+    Inequality::Inequality(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::INEQUALITY, rhs) {}
+    GreaterThan::GreaterThan(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::GREATER_THAN, rhs) {}
+    GreaterThan::GreaterThan(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::GREATER_THAN, rhs) {}
+    SmallerThan::SmallerThan(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::SMALLER_THAN, rhs) {}
+    SmallerThan::SmallerThan(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::SMALLER_THAN, rhs) {}
+    GreaterThanOrEquals::GreaterThanOrEquals(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::GREATER_THAN_OR_EQUALS, rhs) {}
+    GreaterThanOrEquals::GreaterThanOrEquals(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::GREATER_THAN_OR_EQUALS, rhs) {}
+    SmallerThanOrEquals::SmallerThanOrEquals(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::SMALLER_THAN_OR_EQUALS, rhs) {}
+    SmallerThanOrEquals::SmallerThanOrEquals(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::SMALLER_THAN_OR_EQUALS, rhs) {}
+    In::In(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::IN, rhs) {}
+    In::In(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::IN, rhs) {}
+    NotIn::NotIn(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::NOT_IN, rhs) {}
+    NotIn::NotIn(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs) : RelationalStatement(lhs, RelationalType::NOT_IN, rhs) {}
 }

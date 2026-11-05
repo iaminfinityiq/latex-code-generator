@@ -51,4 +51,156 @@ namespace latexgen {
         RelationalType op;
         std::shared_ptr<Expression> rhs;
     };
+
+    /**
+     * Represents an equality
+     */
+    struct Equality : public RelationalStatement {
+    public:
+        /**
+         * Constructor for equality
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        Equality(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for equality
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        Equality(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents an inequality
+     */
+    struct Inequality : public RelationalStatement {
+    public:
+        /**
+         * Constructor for inequality
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        Inequality(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for inequality
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        Inequality(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents an inequality, specifically greater than something
+     */
+    struct GreaterThan : public RelationalStatement {
+    public:
+        /**
+         * Constructor for greater than
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        GreaterThan(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for greater than
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        GreaterThan(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents an inequality, specifically smaller than something
+     */
+    struct SmallerThan : public RelationalStatement {
+    public:
+        /**
+         * Constructor for smaller than
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        SmallerThan(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for smaller than
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        SmallerThan(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents an inequality, specifically greater than or equals something
+     */
+    struct GreaterThanOrEquals : public RelationalStatement {
+    public:
+        /**
+         * Constructor for greater than or equals
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        GreaterThanOrEquals(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for greater than or equals
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        GreaterThanOrEquals(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents an inequality, specifically smaller than or equals something
+     */
+    struct SmallerThanOrEquals : public RelationalStatement {
+    public:
+        /**
+         * Constructor for smaller than or equals
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        SmallerThanOrEquals(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for smaller than or equals
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        SmallerThanOrEquals(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents an in relation
+     */
+    struct In : public RelationalStatement {
+    public:
+        /**
+         * Constructor for in
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        In(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for in
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        In(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
+
+    /**
+     * Represents a not in relation
+     */
+    struct NotIn : public RelationalStatement {
+    public:
+        /**
+         * Constructor for not in
+         * @param lhs the left expression
+         * @param rhs the right expression
+         */
+        NotIn(const std::shared_ptr<Expression> &lhs, const std::shared_ptr<Expression> &rhs);
+        /**
+         * Constructor for not in
+         * @param lhs the left side, which is a relational statement containing the results of `n-1` previous expressions
+         * rhs the right expression
+         */
+        NotIn(const std::shared_ptr<RelationalStatement> &lhs, const std::shared_ptr<Expression> &rhs);
+    };
 }

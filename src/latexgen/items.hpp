@@ -33,5 +33,7 @@ namespace latexgen {
         ItemType get_item_type() const;
     private:
         ItemType item_type;
+        std::string latex;
+        bool visited;
     };
 }
